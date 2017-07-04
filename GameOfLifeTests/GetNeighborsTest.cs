@@ -60,8 +60,7 @@ namespace GameOfLifeTests
             CellularAutomat.GetNeighbors(point).Count(p => p != point && points.Contains(p))
                 .ShouldBeEquivalentTo(4);
         }
-
-
+        
         [Test, TestCaseSource(nameof(randomPoints))]
         public void MethodGetNeighborsShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf3(Point point)
         {

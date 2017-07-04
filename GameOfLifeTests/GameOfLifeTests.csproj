@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="GetNeighborsTest.cs" />
     <Compile Include="IsAliveTest.cs" />
+    <Compile Include="IsBornTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
