@@ -5,39 +5,36 @@ namespace GameOfLife
 {
     public class StateManager<T>
     {
-        private T[] BeginState { get; }
+        public T[] Current = { };
 
-        public T[] CurrentState { get; private set; }
-
-        public bool IsBeginState => CurrentState == BeginState;
+        public bool IsEmplty => states.Count == 0;
 
         private Stack<T[]> states = new Stack<T[]>();
 
-        public StateManager(T[] beginState)
-        {
-            BeginState = beginState;
-            CurrentState = beginState;
-        }
 
+        /// <summary>
+        /// Add new State on history and check changes
+        /// </summary>
+        /// <param name="newState">False if no change</param>
+        /// <returns></returns>
         public bool AddState(T[] newState)
         {
-            var isChanged = newState.Except(CurrentState).Any();
-            if (isChanged)
+            if (IsEmplty || !Current.SetEqual(newState))
             {
-                states.Push(CurrentState);
-                CurrentState = newState.ToArray();
+                states.Push(Current);
+                Current = newState;
+                return true;
             }
-            return isChanged;
+            return false;
         }
 
         public T[] GetPreviewState()
         {
             if (states.Count > 0)
             {
-                CurrentState = states.Pop();
-                return CurrentState;
+                Current = states.Pop();
             }
-            return null;
+            return Current;
         }
     }
 }

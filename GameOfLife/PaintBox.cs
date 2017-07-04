@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GameOfLife
@@ -9,13 +10,16 @@ namespace GameOfLife
     {
         private Graphics grafic;
 
-        public bool CanPaint { get; set; } = true;
-
         private Pen pen = new Pen(Color.Gainsboro, 0.01f);
 
         private Brush brush = new SolidBrush(Color.Green);
 
-        private List<Point> pointsOnPicturesBox = new List<Point>();
+        private HashSet<Point> pointsOnPicturesBox = new HashSet<Point>();
+
+
+        public bool CanPaint { get; set; } = true;
+
+        public int CellSize { get; protected set; } = 10;
 
         public PaintBox()
         {
@@ -23,18 +27,9 @@ namespace GameOfLife
             pictureBox1.MouseWheel += PictureBox1_MouseWheel;
         }
 
-        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            CellSize += e.Delta / Math.Abs(e.Delta);
-            Refresh();
-        }
-
-        public int CellSize { get; set; } = 10;
-
         public void SetPoints(Point[] points)
         {
-            pointsOnPicturesBox.Clear();
-            pointsOnPicturesBox.AddRange(points);
+            pointsOnPicturesBox = new HashSet<Point>(points);
             Draw();
         }
 
@@ -42,6 +37,7 @@ namespace GameOfLife
         {
             return pointsOnPicturesBox.ToArray();
         }
+
 
         public bool isMouseDown;
 
@@ -70,11 +66,20 @@ namespace GameOfLife
             Draw();
         }
 
+        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            CellSize += e.Delta / Math.Abs(e.Delta);
+            Refresh();
+        }
+
 
         public void Draw()
         {
             grafic.Clear(Color.Transparent);
-
+            if (CanPaint)
+            {
+                grafic.DrawString("Can mouse draw", new Font(Font.FontFamily, 10), new SolidBrush(Color.Gainsboro), 0, 0);
+            }
             foreach (var point in pointsOnPicturesBox)
             {
                 grafic.FillRectangle(brush, point.X * CellSize, point.Y * CellSize, CellSize, CellSize);

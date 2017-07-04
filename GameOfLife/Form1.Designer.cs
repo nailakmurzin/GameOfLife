@@ -37,7 +37,6 @@
             // 
             // paintBox1
             // 
-            this.paintBox1.CellSize = 10;
             this.tableLayoutPanel1.SetColumnSpan(this.paintBox1, 3);
             this.paintBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paintBox1.Location = new System.Drawing.Point(3, 30);

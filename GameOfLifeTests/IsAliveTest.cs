@@ -31,7 +31,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            points.All(s => CellularAutomat.IsAlive(s, points)).Should().BeFalse();
+            points.All(s => CellularAutomat.IsAlive(s,points.ToArray())).Should().BeFalse();
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
@@ -43,7 +43,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeTrue();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeTrue();
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
@@ -55,7 +55,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeTrue();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeTrue();
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
@@ -67,7 +67,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeFalse();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeFalse();
         }
 
 
@@ -80,7 +80,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeFalse();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeFalse();
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
@@ -93,7 +93,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeFalse();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeFalse();
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
@@ -106,7 +106,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeFalse();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeFalse();
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
@@ -119,7 +119,7 @@ namespace GameOfLifeTests
             });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.IsAlive(point, points).Should().BeFalse();
+            CellularAutomat.IsAlive(point,points.ToArray()).Should().BeFalse();
         }
     }
 }
