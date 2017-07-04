@@ -23,7 +23,7 @@ namespace GameOfLife
 
         public int CellSize { get; set; } = 10;
 
-        public void SetPoints(IEnumerable<Point> points)
+        public void SetPoints(Point[] points)
         {
             grafic.Clear(Color.White);
             int m = size / CellSize;

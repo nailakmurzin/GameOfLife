@@ -8,11 +8,13 @@ namespace GameOfLife
 {
     public partial class Form1 : Form
     {
+        public StateManager<Point> StateManager;
+
         public Form1()
         {
             InitializeComponent();
-            points = new HashSet<Point>(GenerateBeginStep());
-            beginState = points;
+            var points = new HashSet<Point>(GenerateBeginStep()).ToArray();
+            StateManager = new StateManager<Point>(points);
             paintBox1.SetPoints(points);
         }
 
@@ -32,27 +34,32 @@ namespace GameOfLife
             return totalPoints;
         }
 
-        private int currentStep = 0;
-        private HashSet<Point> points = new HashSet<Point>();
-        private HashSet<Point> beginState = new HashSet<Point>();
+        //private HashSet<Point> points = new HashSet<Point>();
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            currentStep++;
-            points = new HashSet<Point>(CellularAutomat.NextStep(points.ToArray()));
-            paintBox1.SetPoints(points);
+            // next
+            var points = CellularAutomat.NextStep(StateManager.CurrentState).ToArray();
+            if (StateManager.AddState(points.ToArray()))
+            {
+                paintBox1.SetPoints(points);
+            }
+            else
+            {
+                MessageBox.Show("The End!");
+            }
+            GC.Collect();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            currentStep--;
-            points = beginState;
-            for (int i = 0; i < currentStep; i++)
+            // prev
+            var points = StateManager.GetPreviewState();
+            if (points != null)
             {
-                points = new HashSet<Point>(CellularAutomat.NextStep(points.ToArray()));
+                paintBox1.SetPoints(points);
             }
-            paintBox1.SetPoints(points);
         }
     }
 }
