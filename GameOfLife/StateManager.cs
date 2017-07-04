@@ -9,12 +9,14 @@ namespace GameOfLife
 
         public T[] CurrentState { get; private set; }
 
+        public bool IsBeginState => CurrentState == BeginState;
+
         private Stack<T[]> states = new Stack<T[]>();
 
         public StateManager(T[] beginState)
         {
             BeginState = beginState;
-            CurrentState = beginState.ToArray();
+            CurrentState = beginState;
         }
 
         public bool AddState(T[] newState)

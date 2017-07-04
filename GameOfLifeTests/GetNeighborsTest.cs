@@ -23,7 +23,7 @@ namespace GameOfLifeTests
         };
 
         [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnNeighborsOfPointThatEquivalentToMethodGenerateNeighbors(Point point)
+        public void ShouldReturnNeighborsOfPointThatEquivalentToMethodGenerateNeighbors(Point point)
         {
             int x = point.X;
             int y = point.Y;
@@ -38,41 +38,31 @@ namespace GameOfLifeTests
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnNeighborsOfPointThatAlwaysNumberOf8(Point point)
+        public void ShouldReturnNeighborsOfPointThatAlwaysNumberOf8(Point point)
         {
             CellularAutomat.GetNeighbors(point).Count()
                 .ShouldBeEquivalentTo(8);
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnNeighborsOfPointThatDoNotConstainSourcePoint(Point point)
+        public void ShouldReturnNeighborsOfPointThatDoNotConstainSourcePoint(Point point)
         {
             CellularAutomat.GetNeighbors(point)
                 .Should().NotContain(point);
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf4(Point point)
+        public void ShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf1(Point point)
         {
-            var points = new List<Point>(new[] { point.Move(0, -1), point.Move(0, 1), point.Move(1, 0), point.Move(1, 1) });
+            var points = new List<Point>(new[] { point.Move(0, -1) });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
             CellularAutomat.GetNeighbors(point).Count(p => p != point && points.Contains(p))
-                .ShouldBeEquivalentTo(4);
-        }
-        
-        [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf3(Point point)
-        {
-            var points = new List<Point>(new[] {  point.Move(0, 1), point.Move(1, 0), point.Move(1, 1) });
-            points.Add(point);
-            points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
-            CellularAutomat.GetNeighbors(point).Count(p => p != point && points.Contains(p))
-                .ShouldBeEquivalentTo(3);
+                .ShouldBeEquivalentTo(1);
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf2(Point point)
+        public void ShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf2(Point point)
         {
             var points = new List<Point>(new[] { point.Move(0, -1), point.Move(1, 0) });
             points.Add(point);
@@ -82,15 +72,24 @@ namespace GameOfLifeTests
         }
 
         [Test, TestCaseSource(nameof(randomPoints))]
-        public void MethodGetNeighborsShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf1(Point point)
+        public void ShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf3(Point point)
         {
-            var points = new List<Point>(new[] { point.Move(0, -1) });
+            var points = new List<Point>(new[] { point.Move(0, 1), point.Move(1, 0), point.Move(1, 1) });
             points.Add(point);
             points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
             CellularAutomat.GetNeighbors(point).Count(p => p != point && points.Contains(p))
-                .ShouldBeEquivalentTo(1);
+                .ShouldBeEquivalentTo(3);
         }
 
-        
+        [Test, TestCaseSource(nameof(randomPoints))]
+        public void ShouldReturnLiveNeighborsOfPointThatAlwaysNumberOf4(Point point)
+        {
+            var points = new List<Point>(new[] { point.Move(0, -1), point.Move(0, 1), point.Move(1, 0), point.Move(1, 1) });
+            points.Add(point);
+            points.AddRange(new[] { point.Move(-2, 0), point.Move(0, 2), point.Move(2, 0), point.Move(2, 2) });
+            CellularAutomat.GetNeighbors(point).Count(p => p != point && points.Contains(p))
+                .ShouldBeEquivalentTo(4);
+        }
+
     }
 }

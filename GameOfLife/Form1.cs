@@ -13,8 +13,7 @@ namespace GameOfLife
         public Form1()
         {
             InitializeComponent();
-            var points = new HashSet<Point>(GenerateBeginStep()).ToArray();
-            StateManager = new StateManager<Point>(points);
+            var points = new HashSet<Point>(GenerateBeginStep()).ToArray();           
             paintBox1.SetPoints(points);
         }
 
@@ -37,7 +36,22 @@ namespace GameOfLife
         private void button2_Click(object sender, EventArgs e)
         {
             // next
-            var points = CellularAutomat.NextStep(StateManager.CurrentState).ToArray();
+            paintBox1.CanPaint = false;
+            Point[] points;
+            if (StateManager == null)
+            {
+                StateManager = new StateManager<Point>(paintBox1.GetPoints());
+            }
+            if (StateManager.IsBeginState)
+            {
+                var statePoint = StateManager.CurrentState;
+                var srawPoint = paintBox1.GetPoints();
+                points = CellularAutomat.NextStep(statePoint.Concat(srawPoint).ToArray()).ToArray();
+            }
+            else
+            {
+                points = CellularAutomat.NextStep(StateManager.CurrentState).ToArray();
+            }
             if (StateManager.AddState(points.ToArray()))
             {
                 paintBox1.SetPoints(points);
@@ -52,7 +66,13 @@ namespace GameOfLife
         private void button1_Click(object sender, EventArgs e)
         {
             // prev
+            if(StateManager==null)
+                return;
             var points = StateManager.GetPreviewState();
+            if (StateManager.IsBeginState)
+            {
+                paintBox1.CanPaint = true;
+            }
             if (points != null)
             {
                 paintBox1.SetPoints(points);
