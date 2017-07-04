@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace GameOfLife
@@ -8,7 +7,7 @@ namespace GameOfLife
     {
         private Graphics grafic;
 
-        private int size = 500;
+        private int size = 1000;
 
         private Pen pen = new Pen(Color.Gainsboro, 0.01f);
 

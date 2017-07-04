@@ -6,7 +6,7 @@ namespace GameOfLife
 {
     public static class CellularAutomat
     {
-        private static int[] steps = { -1, 0, 1 };
+        private static int[] steps = {-1, 0, 1};
 
         public static IEnumerable<Point> GetNeighbors(Point p)
         {
@@ -20,6 +20,7 @@ namespace GameOfLife
                 .Count(points.Contains);
             return count > 1 && count < 4;
         }
+
         public static bool IsBorn(Point p, IEnumerable<Point> points)
         {
             return GetNeighbors(p).Count(points.Contains) == 3;
@@ -32,8 +33,8 @@ namespace GameOfLife
 
         public static IEnumerable<Point> GetLiveNeighborsFromCurrentNeighborsPoints(Point[] points)
         {
-            return points.SelectMany(p => GetNeighbors(p)
-                .Where(point => !points.Contains(point) && IsBorn(point, points)));
+            return points.SelectMany(GetNeighbors).Distinct()
+                .Where(point => !points.Contains(point) && IsBorn(point, points));
         }
 
         public static IEnumerable<Point> NextStep(Point[] points)
@@ -41,6 +42,5 @@ namespace GameOfLife
             return GetLiveNeighborsFromCurrentLivePoints(points)
                 .Concat(GetLiveNeighborsFromCurrentNeighborsPoints(points));
         }
-
     }
 }

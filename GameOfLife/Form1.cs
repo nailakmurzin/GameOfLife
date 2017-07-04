@@ -8,7 +8,7 @@ namespace GameOfLife
 {
     public partial class Form1 : Form
     {
-        public StateManager<Point> StateManager;
+        private StateManager<Point> StateManager;
 
         public Form1()
         {
@@ -33,10 +33,7 @@ namespace GameOfLife
 
             return totalPoints;
         }
-
-        //private HashSet<Point> points = new HashSet<Point>();
-
-
+        
         private void button2_Click(object sender, EventArgs e)
         {
             // next
