@@ -13,8 +13,8 @@ namespace GameOfLife
         public Form1()
         {
             InitializeComponent();
-            var points = new HashSet<Point>(GenerateBeginStep()).ToArray();           
-            paintBox1.SetPoints(points);
+            //var points = new HashSet<Point>(GenerateBeginStep()).ToArray();           
+            //paintBox1.SetPoints(points);
         }
 
         public IEnumerable<Point> GenerateBeginStep()
